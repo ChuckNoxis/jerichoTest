@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_jericho" default="compile.module.jericho">
+    <dirname property="module.jericho.basedir" file="${ant.file.module_jericho}"/>
+
+    <property name="module.jdk.home.jericho" value="${project.jdk.home}"/>
+    <property name="module.jdk.bin.jericho" value="${project.jdk.bin}"/>
+    <property name="module.jdk.classpath.jericho" value="${project.jdk.classpath}"/>
+
+    <property name="compiler.args.jericho" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+
+    <property name="jericho.output.dir" value="${module.jericho.basedir}/out/production/jericho"/>
+    <property name="jericho.testoutput.dir" value="${module.jericho.basedir}/out/test/jericho"/>
+
+    <path id="jericho.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="jericho.module.production.classpath">
+        <path refid="${module.jdk.classpath.jericho}"/>
+        <path refid="library.net.htmlparser.jericho:jericho-html:3.4.classpath"/>
+    </path>
+
+    <path id="jericho.runtime.production.module.classpath">
+        <pathelement location="${jericho.output.dir}"/>
+        <path refid="library.net.htmlparser.jericho:jericho-html:3.4.classpath"/>
+    </path>
+
+    <path id="jericho.module.classpath">
+        <path refid="${module.jdk.classpath.jericho}"/>
+        <pathelement location="${jericho.output.dir}"/>
+        <path refid="library.net.htmlparser.jericho:jericho-html:3.4.classpath"/>
+    </path>
+
+    <path id="jericho.runtime.module.classpath">
+        <pathelement location="${jericho.testoutput.dir}"/>
+        <pathelement location="${jericho.output.dir}"/>
+        <path refid="library.net.htmlparser.jericho:jericho-html:3.4.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.jericho">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.jericho">
+        <patternset refid="excluded.from.module.jericho"/>
+    </patternset>
+
+    <path id="jericho.module.sourcepath">
+        <dirset dir="${module.jericho.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.jericho" depends="compile.module.jericho.production,compile.module.jericho.tests"
+            description="Compile module jericho"/>
+
+    <target name="compile.module.jericho.production" description="Compile module jericho; production classes">
+        <mkdir dir="${jericho.output.dir}"/>
+        <javac destdir="${jericho.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.jericho}/javac">
+            <compilerarg line="${compiler.args.jericho}"/>
+            <bootclasspath refid="jericho.module.bootclasspath"/>
+            <classpath refid="jericho.module.production.classpath"/>
+            <src refid="jericho.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.jericho"/>
+        </javac>
+
+        <copy todir="${jericho.output.dir}">
+            <fileset dir="${module.jericho.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.jericho.tests" depends="compile.module.jericho.production"
+            description="compile module jericho; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.jericho" description="cleanup module">
+        <delete dir="${jericho.output.dir}"/>
+        <delete dir="${jericho.testoutput.dir}"/>
+    </target>
+</project>
