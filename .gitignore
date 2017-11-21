@@ -13,7 +13,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.zip
@@ -124,3 +123,5 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+__artifacts_temp/
+lib/
