@@ -16,7 +16,7 @@ public class Main {
         source.fullSequentialParse();
 
         printTitle(source);
-        //printLinks(source);
+        printLinks(source);
         //printTextExcluding(source);
         printText(source);
         //printTextSpecific(source);
@@ -69,16 +69,20 @@ public class Main {
     private static void printLinks(Source source)
     {
         System.out.println("\nLinks to other documents:");
-        List<net.htmlparser.jericho.Element> linkElements = getLinks(source);
-        for (Element linkElement : linkElements)
+        List<net.htmlparser.jericho.Element> links = getLinks(source);
+        for (Element linkElement : links)
         {
             String href = linkElement.getAttributeValue("href");
             if (href == null)
                 continue;
             // A element can contain other tags so need to extract the text from it:
             String label = linkElement.getContent().getTextExtractor().toString();
-            if (!href.startsWith("#"))
-                System.out.println(label + " <" + href + '>');
+            if (!href.startsWith("#") && !href.endsWith("#")) {
+                if (label.isEmpty())
+                    System.out.println("(none)" + " <" + href + '>');
+                else
+                    System.out.println(label + " <" + href + '>');
+            }
         }
     }
 
@@ -92,15 +96,15 @@ public class Main {
     private static List<net.htmlparser.jericho.Element> getLinks(Source source)
     {
         List<net.htmlparser.jericho.Element> links = source.getAllElements(net.htmlparser.jericho.HTMLElementName.A);
-        return links;
+        return (links);
     }
 
     private static String getTitle(Source source)
     {
         Element titleElement = source.getFirstElement(HTMLElementName.TITLE);
         if (titleElement == null)
-            return null;
+            return (null);
         // TITLE element never contains other tags so just decode it collapsing whitespace:
-        return CharacterReference.decodeCollapseWhiteSpace(titleElement.getContent());
+        return (CharacterReference.decodeCollapseWhiteSpace(titleElement.getContent()));
     }
 }
