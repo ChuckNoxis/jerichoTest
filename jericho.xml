@@ -89,8 +89,16 @@
 
     <!-- Project Libraries -->
 
-    <path id="library.net.htmlparser.jericho:jericho-html:3.4.classpath">
-        <pathelement location="${basedir}/lib/jericho-html-3.4.jar"/>
+    <path id="library.com.ibm.icu:icu4j:60.1.classpath">
+        <pathelement location="${basedir}/lib/icu4j-60.1.jar"/>
+    </path>
+
+    <path id="library.it.unimi.di.law:jericho-html-dev:20131217.classpath">
+        <pathelement location="${basedir}/lib/commons-logging-1.1.3.jar"/>
+        <pathelement location="${basedir}/lib/fastutil-6.5.11.jar"/>
+        <pathelement location="${basedir}/lib/jericho-html-dev-20131217.jar"/>
+        <pathelement location="${basedir}/lib/log4j-1.2.17.jar"/>
+        <pathelement location="${basedir}/lib/slf4j-api-1.7.5.jar"/>
     </path>
 
     <!-- Modules -->
@@ -117,11 +125,17 @@
         <property name="artifact.temp.output.jericho:jar" value="${artifacts.temp.dir}/jericho_jar"/>
         <mkdir dir="${artifact.temp.output.jericho:jar}"/>
         <jar destfile="${temp.jar.path.jericho.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+            <zipfileset file="${basedir}/META-INF/MANIFEST.MF" prefix="META-INF"/>
             <zipfileset dir="${jericho.output.dir}"/>
-            <zipfileset src="${basedir}/lib/jericho-html-3.4.jar"/>
+            <zipfileset src="${basedir}/lib/icu4j-60.1.jar"/>
+            <zipfileset src="${basedir}/lib/jericho-html-dev-20131217.jar"/>
+            <zipfileset src="${basedir}/lib/fastutil-6.5.11.jar"/>
+            <zipfileset src="${basedir}/lib/slf4j-api-1.7.5.jar"/>
+            <zipfileset src="${basedir}/lib/log4j-1.2.17.jar"/>
+            <zipfileset src="${basedir}/lib/commons-logging-1.1.3.jar"/>
         </jar>
         <copy file="${temp.jar.path.jericho.jar}" tofile="${artifact.temp.output.jericho:jar}/jericho.jar"/>
-        <copy file="${temp.jar.path.jericho.jar}" tofile="${basedir}/jericho.jar"/>
+        <copy file="${temp.jar.path.jericho.jar}" tofile="jericho.jar"/>
     </target>
 
     <target name="build.all.artifacts" depends="artifact.jericho:jar" description="Build all artifacts">

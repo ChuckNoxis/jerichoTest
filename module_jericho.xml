@@ -17,24 +17,28 @@
 
     <path id="jericho.module.production.classpath">
         <path refid="${module.jdk.classpath.jericho}"/>
-        <path refid="library.net.htmlparser.jericho:jericho-html:3.4.classpath"/>
+        <path refid="library.it.unimi.di.law:jericho-html-dev:20131217.classpath"/>
+        <path refid="library.com.ibm.icu:icu4j:60.1.classpath"/>
     </path>
 
     <path id="jericho.runtime.production.module.classpath">
         <pathelement location="${jericho.output.dir}"/>
-        <path refid="library.net.htmlparser.jericho:jericho-html:3.4.classpath"/>
+        <path refid="library.it.unimi.di.law:jericho-html-dev:20131217.classpath"/>
+        <path refid="library.com.ibm.icu:icu4j:60.1.classpath"/>
     </path>
 
     <path id="jericho.module.classpath">
         <path refid="${module.jdk.classpath.jericho}"/>
         <pathelement location="${jericho.output.dir}"/>
-        <path refid="library.net.htmlparser.jericho:jericho-html:3.4.classpath"/>
+        <path refid="library.it.unimi.di.law:jericho-html-dev:20131217.classpath"/>
+        <path refid="library.com.ibm.icu:icu4j:60.1.classpath"/>
     </path>
 
     <path id="jericho.runtime.module.classpath">
         <pathelement location="${jericho.testoutput.dir}"/>
         <pathelement location="${jericho.output.dir}"/>
-        <path refid="library.net.htmlparser.jericho:jericho-html:3.4.classpath"/>
+        <path refid="library.it.unimi.di.law:jericho-html-dev:20131217.classpath"/>
+        <path refid="library.com.ibm.icu:icu4j:60.1.classpath"/>
     </path>
 
 
